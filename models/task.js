@@ -1,8 +1,10 @@
-const { Sequelize, DataTypes } = require('sequelize');
+const { DataTypes, INTEGER } = require('sequelize');
 
-const sequelize = new Sequelize('sqlite::memory:');
+const {sequelize} = require('../startUp/db');
+const {User} = require('./user');
+//const sequelize = new Sequelize('sqlite::memory:');
 
-async function chcekConnection() {
+/*async function chcekConnection() {
     try {
         await sequelize.authenticate();
         console.log('Connection has been established successfully.');
@@ -11,29 +13,32 @@ async function chcekConnection() {
     }
 }
 
-chcekConnection();
+chcekConnection();*/
 
 const Task = sequelize.define('Task', {
-    id:{
-        type:DataTypes.INTEGER,
-        primaryKey:true,
-        autoIncrement:true
+    id: {
+        type: DataTypes.INTEGER,
+        primaryKey: true,
+        autoIncrement: true
     },
     taskname: {
         type: DataTypes.STRING,
         allowNull: false,
     },
-    description:{
-        type:DataTypes.TEXT,
-        validate:{
-            max:500
+    description: {
+        type: DataTypes.TEXT,
+        validate: {
+            max: 500
         }
     },
-    status:{
-        type:DataTypes.BOOLEAN,
-        defaultValue:false,
+    status: {
+        type: DataTypes.BOOLEAN,
+        defaultValue: false,
     }
 });
+
+User.hasMany(Task);
+Task.belongsTo(User);
 
 Task.sync()
     .then(result => console.log(result))

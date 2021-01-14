@@ -1,8 +1,10 @@
-const { Sequelize, DataTypes, INTEGER } = require('sequelize');
+const { DataTypes } = require('sequelize');
 
-const sequelize = new Sequelize('sqlite::memory:');
+const {sequelize} = require('../startUp/db');
 
-async function chcekConnection() {
+//const sequelize = new Sequelize('sqlite::memory:');
+
+/*async function chcekConnection() {
     try {
         await sequelize.authenticate();
         console.log('Connection has been established successfully.');
@@ -11,13 +13,13 @@ async function chcekConnection() {
     }
 }
 
-chcekConnection();
+chcekConnection();*/
 
 const User = sequelize.define('User', {
-    id:{
-        type:DataTypes.INTEGER,
-        primaryKey:true,
-        autoIncrement:true
+    id: {
+        type: DataTypes.INTEGER,
+        primaryKey: true,
+        autoIncrement: true
     },
     username: {
         type: DataTypes.STRING,
@@ -37,4 +39,4 @@ User.sync()
     .then(result => console.log(result))
     .catch(err => console.log(err));
 
-exports.User = User;
+exports.User =  User;
