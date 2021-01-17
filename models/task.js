@@ -1,19 +1,7 @@
 const { DataTypes, INTEGER } = require('sequelize');
 
 const {sequelize} = require('../startUp/db');
-const {User} = require('./user');
-//const sequelize = new Sequelize('sqlite::memory:');
-
-/*async function chcekConnection() {
-    try {
-        await sequelize.authenticate();
-        console.log('Connection has been established successfully.');
-    } catch (error) {
-        console.error('Unable to connect to the database:', error);
-    }
-}
-
-chcekConnection();*/
+const User = require('./user');
 
 const Task = sequelize.define('Task', {
     id: {
@@ -41,6 +29,6 @@ User.hasMany(Task);
 Task.belongsTo(User);
 
 Task.sync()
-    .then(result => console.log(result))
-    .catch(err => console.log(err));
-exports.Task = Task;
+    .then(result => result)
+    .catch(err => err);
+module.exports = Task;
