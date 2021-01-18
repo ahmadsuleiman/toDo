@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 const taskRepo = require('../repos/taskRepo');
 const userRepo = require('../repos/userRepo');
-router.post('/create', async (req, res) => {
+router.post('/', async (req, res) => {
 
     const validator = taskRepo.validate(req.body);
     if (validator.msg) return res.status(400).send(validator.msg);

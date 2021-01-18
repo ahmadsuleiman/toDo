@@ -1,37 +1,27 @@
-const User = require('../models/user');
+const {User} = require('../models/index');
 
 module.exports = {
     createUser: function (username, encpassword) {
-        const newUser = User.create({
+        return User.create({
             username: username,
             password: encpassword
         })
-            .then(result => result)
-            .catch(err => err);
-        return newUser;
     },
 
-    findUserByName: function (username) {
-        const user = User.findOne({
+    findUserByName:  function (username) {
+        return User.findOne({
             where: {
                 username: username,
             }
         })
-            .then(result => result)
-            .catch(err => err);
-        return user;
     },
 
     findUserById: function(userid){
-        const user = User.findOne({
+        return User.findOne({
             where:{
                 id:userid
             }
         })
-            .then(result=>result)
-            .catch(err=>err);
-            
-        return user;
     },
 
     validate: function (req) {

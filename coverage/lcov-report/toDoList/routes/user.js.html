@@ -23,30 +23,30 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">30% </span>
+                <span class="strong">86.67% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>9/30</span>
+                <span class='fraction'>26/30</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">80% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>0/10</span>
+                <span class='fraction'>8/10</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">66.67% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>0/3</span>
+                <span class='fraction'>2/3</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">36% </span>
+                <span class="strong">88% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>9/25</span>
+                <span class='fraction'>22/25</span>
             </div>
         
             
@@ -55,7 +55,7 @@
             Press <em>n</em> or <em>j</em> to go to the next uncovered block, <em>b</em>, <em>p</em> or <em>k</em> for the previous block.
         </p>
     </div>
-    <div class='status-line low'></div>
+    <div class='status-line high'></div>
     <pre><table class="coverage">
 <tr><td class="line-count quiet"><a name='L1'></a><a href='#L1'>1</a>
 <a name='L2'></a><a href='#L2'>2</a>
@@ -107,27 +107,27 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">10x</span>
+<span class="cline-any cline-yes">10x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">10x</span>
+<span class="cline-any cline-yes">10x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">5x</span>
+<span class="cline-any cline-yes">5x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -145,29 +145,29 @@ const encrypt = require('../repos/hash');
 const bcrypt = require('bcrypt');
 const userRepo = require('../repos/userRepo');
 &nbsp;
-router.post('/register', <span class="fstat-no" title="function not covered" >as</span>ync (req, res) =&gt; {
+router.post('/register', async (req, res) =&gt; {
     
-    const validator = <span class="cstat-no" title="statement not covered" >userRepo.validate(req.body);</span>
-<span class="cstat-no" title="statement not covered" >    if(validator.msg) <span class="cstat-no" title="statement not covered" >return res.status(400).send(validator.msg);</span></span>
+    const validator = userRepo.validate(req.body);
+    <span class="missing-if-branch" title="if path not taken" >I</span>if(validator.msg) <span class="cstat-no" title="statement not covered" >return res.status(400).send(validator.msg);</span>
 &nbsp;
-    const user = <span class="cstat-no" title="statement not covered" >await userRepo.findUserByName(validator.username);</span>
-<span class="cstat-no" title="statement not covered" >    if(user) <span class="cstat-no" title="statement not covered" >return res.status(400).send("username already exist");</span></span>
+    const user = await userRepo.findUserByName(validator.username);
+    if(user) return res.status(400).send("username already exist");
 &nbsp;
-    const encpassword = <span class="cstat-no" title="statement not covered" >await encrypt(validator.password);</span>
+    const encpassword = await encrypt(validator.password);
 &nbsp;
-    const newUser = <span class="cstat-no" title="statement not covered" >await userRepo.createUser(validator.username,encpassword);</span>
-<span class="cstat-no" title="statement not covered" >    res.send(newUser);</span>
+    const newUser = await userRepo.createUser(validator.username,encpassword);
+    res.send(newUser);
 });
 &nbsp;
-router.post('/login', <span class="fstat-no" title="function not covered" >as</span>ync (req, res) =&gt; {
-    const validator = <span class="cstat-no" title="statement not covered" >userRepo.validate(req.body);</span>
-<span class="cstat-no" title="statement not covered" >    if(validator.msg) <span class="cstat-no" title="statement not covered" >return res.status(400).send(validator.msg);</span></span>
+router.post('/login', async (req, res) =&gt; {
+    const validator = userRepo.validate(req.body);
+    if(validator.msg) return res.status(400).send(validator.msg);
 &nbsp;
-    const user = <span class="cstat-no" title="statement not covered" >await userRepo.findUserByName(validator.username);</span>
-<span class="cstat-no" title="statement not covered" >    if (!user) <span class="cstat-no" title="statement not covered" >return res.status(404).send('invalid user name or password')</span></span>
+    const user = await userRepo.findUserByName(validator.username);
+    if (!user) return res.status(404).send('invalid user name or password')
     
-    const valid = <span class="cstat-no" title="statement not covered" >await bcrypt.compare(validator.password, user.password);</span>
-<span class="cstat-no" title="statement not covered" >    if (!valid) <span class="cstat-no" title="statement not covered" >return res.status(404).send("Invalid user name or password");</span></span>
+    const valid = await bcrypt.compare(validator.password, user.password);
+    <span class="missing-if-branch" title="else path not taken" >E</span>if (!valid) return res.status(404).send("Invalid user name or password");
 &nbsp;
 <span class="cstat-no" title="statement not covered" >    res.send('valid username and password');</span>
 });
@@ -184,7 +184,7 @@ module.exports = router;</pre></td></tr></table></pre>
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Sun Jan 17 2021 17:21:53 GMT+0200 (Eastern European Standard Time)
+                at Mon Jan 18 2021 10:18:39 GMT+0200 (Eastern European Standard Time)
             </div>
         </div>
         <script src="../../prettify.js"></script>

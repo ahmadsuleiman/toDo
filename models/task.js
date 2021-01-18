@@ -24,11 +24,4 @@ const Task = sequelize.define('Task', {
         defaultValue: false,
     }
 });
-
-User.hasMany(Task);
-Task.belongsTo(User);
-
-Task.sync()
-    .then(result => result)
-    .catch(err => err);
 module.exports = Task;
