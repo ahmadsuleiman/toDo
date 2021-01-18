@@ -1,5 +1,5 @@
-node_modules/
-coverage/
-config/
-.index.js.swo/
+node_modules
+coverage
+config
+.index.js.swo
 .index.js.swp/
