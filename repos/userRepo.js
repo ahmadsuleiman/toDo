@@ -22,19 +22,5 @@ module.exports = {
                 id:userid
             }
         })
-    },
-
-    validate: function (req) {
-        const user = {username:'',password:'',msg:''}
-        const { username, password } = req;
-        user.username = username;
-        user.password = password;
-        if (!username) {
-            user.msg = 'enter username';
-        }
-        else if (!password) {
-            user.msg = 'enter password';
-        }
-        return user;
     }
 }

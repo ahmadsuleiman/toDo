@@ -36,13 +36,5 @@ module.exports = {
                 id: taskid
             }
         })
-    },
-
-    validate: function (req) {
-        const { taskname, description, userid } = req
-        const task = { taskname: taskname, description: description, userid: userid, msg: '' };
-        if (!taskname) task.msg = ("enter task name");
-        if (!userid) task.msg = ('user id is missing');
-        return task;
     }
 }

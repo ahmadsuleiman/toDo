@@ -4,7 +4,7 @@ const taskRepo = require('../repos/taskRepo');
 const userRepo = require('../repos/userRepo');
 router.post('/', async (req, res) => {
 
-    const validator = taskRepo.validate(req.body);
+    const validator = validate(req.body);
     if (validator.msg) return res.status(400).send(validator.msg);
 
     const user = await userRepo.findUserById(validator.userid);
@@ -17,7 +17,7 @@ router.post('/', async (req, res) => {
 router.get('/:userId', async (req, res) => {
 
     const userid = req.params.userId;
-    
+
     const user = await userRepo.findUserById(userid);
     if (!user) return res.status(400).send("user doesn't exist");
 
@@ -27,7 +27,7 @@ router.get('/:userId', async (req, res) => {
 
 router.put('/:userId/:taskId', async (req, res) => {
     const { userId, taskId } = req.params;
-    
+
     const user = await userRepo.findUserById(userId);
     if (!user) return res.status(400).send("user doesn't exist");
 
@@ -38,5 +38,12 @@ router.put('/:userId/:taskId', async (req, res) => {
     res.send(updatedTask);
 });
 
+function validate(req) {
+    const { taskname, description, userid } = req
+    const task = { taskname: taskname, description: description, userid: userid, msg: '' };
+    if (!taskname) task.msg = ("enter task name");
+    if (!userid) task.msg = ('user id is missing');
+    return task;
+}
 
 module.exports = router;
