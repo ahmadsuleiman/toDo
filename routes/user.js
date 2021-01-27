@@ -30,11 +30,11 @@ router.post('/login', async (req, res) => {
     const valid = await bcrypt.compare(validator.password, user.password);
     if (!valid) return res.status(404).send("Invalid user name or password");
 
-    res.send('valid username and password');
+    res.send(user);
 });
 
 router.get('/', async (req, res) => {
-    const users = await User.findAll();
+    const users = await userRepo.getAllUsers();
     res.send(users);
 });
 function validate(req) {

@@ -1,6 +1,6 @@
 //const { TableHints } = require('sequelize/types');
-const {Task} = require('../models/index');
-const {sequelize} = require('../startUp/db');
+const { Task } = require('../models/index');
+const { sequelize } = require('../startUp/db');
 
 module.exports = {
 
@@ -17,24 +17,26 @@ module.exports = {
     getTasks: function (userid) {
         return tasks = Task.findAll({
             where: {
-                userId: userid
+                UserId: userid
             }
         })
     },
 
-    findTask: function(taskid){
+    findTask: function (taskid) {
         return Task.findOne({
-            where:{
-                id:taskid
-            }
-        })
-    },
-
-    updateTask: function(taskid){
-        return Task.update({ status:sequelize.literal('NOT status')}, {
             where: {
                 id: taskid
             }
         })
+    },
+
+    updateTask: function (task) {
+        task.status = !task.status;
+        task.save();
+        return task;
+    },
+
+    getAllTasks: function () {
+        return Task.findAll();
     }
 }

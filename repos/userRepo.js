@@ -1,4 +1,4 @@
-const {User} = require('../models/index');
+const { User } = require('../models/index');
 
 module.exports = {
     createUser: function (username, encpassword) {
@@ -8,7 +8,7 @@ module.exports = {
         })
     },
 
-    findUserByName:  function (username) {
+    findUserByName: function (username) {
         return User.findOne({
             where: {
                 username: username,
@@ -16,11 +16,15 @@ module.exports = {
         })
     },
 
-    findUserById: function(userid){
+    findUserById: function (userid) {
         return User.findOne({
-            where:{
-                id:userid
+            where: {
+                id: userid
             }
         })
+    },
+
+    getAllUsers: function () {
+        return User.findAll();
     }
 }
